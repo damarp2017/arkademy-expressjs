@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e8e8e4;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1 class="text-center py-3 text-black-50">CRUD PRODUK</h1>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-offset-1 col-md-10">
+                <a class="btn btn-sm btn-primary float-end" href="/new" type="button">tambah</a>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-offset-1 col-md-10">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Keterangan</th>
+                            <th scope="col">Harga</th>
+                            <th scope="col">Jumlah</th>
+                            <th scope="col">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each products}}
+                        <tr>
+                            <td>{{ id }}</td>
+                            <td>{{ name }}</td>
+                            <td>{{ description }}</td>
+                            <td>{{ price }}</td>
+                            <td>{{ stock }} Pcs</td>
+                            <td>
+                                <a type="button" href="/edit/{{ id }}"
+                                    class="btn btn-sm btn-warning text-white">edit</a>
+                                <a type="button" href="/delete/{{ id }}"
+                                    class="btn btn-sm btn-danger delete-confirm">hapus</a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+    integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"
+    integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj"
+    crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+<script>
+    $('.delete-confirm').on('click', function (event) {
+        event.preventDefault();
+        const url = $(this).attr('href');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        })
+    });
+</script>
+
+</html>
